@@ -1,0 +1,27 @@
+<h1>Турнирная таблица: {{ league.name }}</h1>
+
+<table border="1">
+    <tr>
+        <th>Команда</th>
+        <th>Матчи</th>
+        <th>Победы</th>
+        <th>Ничьи</th>
+        <th>Поражения</th>
+        <th>Разница</th>
+        <th>Очки</th>
+    </tr>
+
+    {% for entry in table %}
+    <tr>
+        <td>{{ entry.team.name }}</td>
+        <td>{{ entry.matches }}</td>
+        <td>{{ entry.wins }}</td>
+        <td>{{ entry.draws }}</td>
+        <td>{{ entry.loses }}</td>
+        <td>{{ entry.difference }}</td>
+        <td>{{ entry.points }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<a href="/{{ league.slug }}/players/">Статистика игроков</a>

@@ -1,0 +1,9 @@
+<h1>Лиги</h1>
+
+<ul>
+    {% for league in leagues %}
+        <li>
+            <a href="/{{ league.slug }}/table/">{{ league.name }}</a>
+        </li>
+    {% endfor %}
+</ul>

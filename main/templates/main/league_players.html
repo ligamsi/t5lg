@@ -1,0 +1,23 @@
+<h1>Статистика игроков: {{ league.name }}</h1>
+
+<table border="1">
+    <tr>
+        <th>Игрок</th>
+        <th>Команда</th>
+        <th>Матчи</th>
+        <th>Голы</th>
+        <th>Ассисты</th>
+    </tr>
+
+    {% for entry in players %}
+    <tr>
+        <td>{{ entry.player.name }} {{ entry.player.surname }}</td>
+        <td>{{ entry.player.team.name }}</td>
+        <td>{{ entry.matches }}</td>
+        <td>{{ entry.goals }}</td>
+        <td>{{ entry.assists }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<a href="/{{ league.slug }}/table/">Турнирная таблица</a>
