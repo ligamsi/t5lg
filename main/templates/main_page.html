@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block leagues_menu %}
+    {% for league in leagues %}
+        <li class="nav-item">
+            <a class="nav-link {% if league == current_league %}active{% endif %}"
+               href="/?league={{ league.slug }}">
+                {{ league.name }}
+            </a>
+        </li>
+    {% endfor %}
+{% endblock %}
+
+{% block content %}
+
+<h2>Турнирная таблица — {{ league.name }}</h2>
+
+<table class="league-table">
+    <thead>
+        <tr>
+            <th>Команда</th>
+            <th>И</th>
+            <th>В</th>
+            <th>Н</th>
+            <th>П</th>
+            <th>З</th>
+            <th>П</th>
+            <th>+/-</th>
+            <th>Очки</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for t in teams %}
+        <tr>
+            <td>{{ t.team.name }}</td>
+            <td>{{ t.matches }}</td>
+            <td>{{ t.wins }}</td>
+            <td>{{ t.draws }}</td>
+            <td>{{ t.loses }}</td>
+            <td>{{ t.goals_scored }}</td>
+            <td>{{ t.goals_conceded }}</td>
+            <td>{{ t.difference }}</td>
+            <td>{{ t.points }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2>Статистика игроков — {{ league.name }}</h2>
+
+<table class="players-table">
+    <thead>
+        <tr>
+            <th>Игрок</th>
+            <th>Матчи</th>
+            <th>Голы</th>
+            <th>Ассисты</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in players %}
+        <tr>
+            <td>{{ p.player.name }} {{ p.player.surname }} ({{ p.player.team.name }})</td>
+            <td>{{ p.matches }}</td>
+            <td>{{ p.goals }}</td>
+            <td>{{ p.assists }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

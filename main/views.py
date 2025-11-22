@@ -3,23 +3,27 @@ from django.shortcuts import render, get_object_or_404
 from .models import League, TeamInLeague, PlayerInLeague
 
 def main_page(request):
+    league_slug = request.GET.get("league")
+
+    # Получаем все лиги
     leagues = League.objects.all()
 
-    # получаем slug выбранной лиги
-    selected_slug = request.GET.get("league")
+    # По умолчанию берём первую лигу
+    current_league = None
+    if league_slug:
+        current_league = League.objects.filter(slug=league_slug).first()
+    if not current_league:
+        current_league = leagues.first()
 
-    # если ничего не выбрано — берём первую лигу
-    if selected_slug:
-        league = get_object_or_404(League, slug=selected_slug)
-    else:
-        league = leagues.first()
+    # Таблица
+    table = TeamInLeague.objects.filter(league=current_league)
 
-    teams = TeamInLeague.objects.filter(league=league).order_by('-points', '-difference', '-goals_scored')
-    players = PlayerInLeague.objects.filter(league=league).order_by('-goals')
+    # Статистика игроков
+    players_stats = PlayerInLeague.objects.filter(league=current_league)
 
     return render(request, "main_page.html", {
         "leagues": leagues,
-        "league": league,
-        "teams": teams,
-        "players": players,
+        "current_league": current_league,
+        "table": table,
+        "players_stats": players_stats,
     })
