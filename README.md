@@ -19,8 +19,8 @@
 1. Клонирование репозитория
 
 ```bash
-git clone https://github.com/<username>/<repo>.git
-cd <repo>
+git clone https://github.com/ligamsi/t5lg.git
+cd t5lg
 ```
 
 2. Создать виртуальное окружение и активировать его
